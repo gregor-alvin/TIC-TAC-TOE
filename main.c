@@ -3,16 +3,13 @@
 
 int main(void)
 {
-    matrix_t base;
-    init_matrix(&base);
+    matrix_t matrix;
+    
+    init_matrix(&matrix);
 
-    base.matrix[1][0] = 'O';
-    base.matrix[0][1] = 'O';
-    base.matrix[1][1] = 'O';
+    print_matrix(&matrix);
 
-    print_matrix(&base);
-
-    int eval = eval_matrix(base);
+    int eval = eval_matrix(matrix);
     printf("\n\n\n\n");
     printf("%d\n",eval);
 

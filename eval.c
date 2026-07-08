@@ -47,5 +47,5 @@ int eval_matrix(matrix_t matrix)
             return DEF;
         }
     //TODO not sure yet how to return none yet, proly will set it sum constant
-    return 67;
+    return -1;
 }

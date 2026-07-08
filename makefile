@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11
 TARGET = game
-SRCS = main.c eval.c helpers.c
+SRCS = main.c eval.c helpers.c search.c
 OBJS = $(SRCS:.c=.o)
 DEPS = header.h
 

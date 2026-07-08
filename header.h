@@ -22,12 +22,35 @@ typedef struct {
     int depth;
 } matrix_t;
 
+//info passing between levels of recursion, holds weight of branch and position of next move
+typedef struct {
+    int idx;
+    int jdx;
+    int weight;
+    int depth_reached;
+} ret_table_t;
+
+
+//helpers
 void print_matrix(matrix_t *);
 
 void init_matrix(matrix_t *);
 
+bool is_full(matrix_t *);
+
+int how_full(matrix_t *);
+
+void choose_move(ret_table_t *[], int);
+
+void swap(ret_table_t *, ret_table_t *);
+
+//eval
 int eval_matrix(matrix_t);
 
+//search
+ret_table_t search(matrix_t, int, int);
+
+//main
 int main(void);
 
 
