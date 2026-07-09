@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 //defs 
 //win lose returns for eval
@@ -40,9 +41,13 @@ bool is_full(matrix_t *);
 
 int how_full(matrix_t *);
 
-void choose_move(ret_table_t *[], int);
+void choose_move(ret_table_t [], int);
 
 void swap(ret_table_t *, ret_table_t *);
+
+void translate_move(matrix_t *, int);
+
+void clear_terminal(void);
 
 //eval
 int eval_matrix(matrix_t);
