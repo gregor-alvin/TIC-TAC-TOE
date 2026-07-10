@@ -19,21 +19,22 @@ ret_table_t search(matrix_t matrix, int idx, int jdx)
     char move;
     move = matrix.depth % 2 == 0 ? 'X' : 'O';
     int count = 0;
-    printf("running recursion on depth %d\n", matrix.depth);
     for(int i = 0; i < 3; i++)     
     {
         for(int j = 0; j < 3; j++)
         { 
             //if space is full, skip
-            if((matrix.matrix[i][j] == 'X') || (matrix.matrix[i][j] == 'O')) continue;
-            //if not, set space as move, run recursion, set space back to empty so next move isnt fuckedup (two Xs or Os in one move)
-            matrix.matrix[i][j] = move;
-            weights[count] = search(matrix, i, j);
-            count++;
-            matrix.matrix[i][j] = ' ';
+            if((matrix.matrix[i][j] != 'X') && (matrix.matrix[i][j] != 'O')) 
+            {
+                //if not, set space as move, run recursion, set space back to empty so next move isnt fuckedup (two Xs or Os in one move)
+                matrix.matrix[i][j] = move;
+                weights[count] = search(matrix, i, j);
+                count++;
+                matrix.matrix[i][j] = ' ';
+            }
         }
     }
-
+    printf("weight array len = %d, fule = %d, count = %d\n", 9-fule, fule, count);
     //set values if game in end state
     //4 cuz first human move is 0, bot move is 1, that means 4 will be first possible depth to end game 
     ret_table_t ret;
@@ -56,5 +57,5 @@ ret_table_t search(matrix_t matrix, int idx, int jdx)
     choose_move(weights, count);
 
     //ternary operator for return, if human player, choose min, if computer, choose max
-    return (move == 'X') ? weights[0] : weights[fule - 1];
+    return (move == 'X') ? weights[0] : weights[count - 1];
 }

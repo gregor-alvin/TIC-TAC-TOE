@@ -12,6 +12,7 @@ int main(void)
         print_matrix(&matrix);
         int move;
         usleep(1000);
+        printf("human turn\n");
         scanf("%d", &move);
         if((move <= 0) || (move >= 10))
         {
@@ -25,17 +26,22 @@ int main(void)
         }
         translate_move(&matrix, move);
 
-
-        
-        //run simulation, 0,0 are dum,y values, only pc needs them
-        ret_table_t pc = search(matrix, 0, 0);
-        matrix.matrix[pc.idx][pc.jdx] = 'O';
-        
-
+        printf("passed to pc:\n");
+        print_matrix(&matrix);
+        printf("pc calcul\n");        
+        //run simulation, 0,0 are dummy values, only pc needs them
         int x = eval_matrix(matrix);
+        if(x == -1)
+        {
+            ret_table_t pc = search(matrix, 0, 0);
+            printf("idx = %d, jdx = %d\n", pc.idx, pc.jdx);
+            matrix.matrix[pc.idx][pc.jdx] = 'O';
+        }
+
+        x = eval_matrix(matrix);
         if(x != -1)
         {
-            clear_terminal();
+            //clear_terminal();
             print_matrix(&matrix);
             if(x == DEF) printf("YOU WON\n");
             if(x == WIN) printf("I WON\n");
@@ -43,7 +49,7 @@ int main(void)
             printf("game ended\n");
             return 1;
         }
-        clear_terminal();
+        //clear_terminal();
     }
     return 1;
 }
