@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 
 //defs 
 //win lose returns for eval
@@ -45,7 +46,7 @@ void choose_move(ret_table_t [], int);
 
 void swap(ret_table_t *, ret_table_t *);
 
-void translate_move(matrix_t *, int);
+bool translate_move(matrix_t *, int);
 
 void clear_terminal(void);
 

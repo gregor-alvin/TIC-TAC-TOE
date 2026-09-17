@@ -18,6 +18,7 @@ ret_table_t search(matrix_t matrix, int idx, int jdx)
     //move determines mini max and what symbol to add to matrix for next level
     char move;
     move = matrix.depth % 2 == 0 ? 'X' : 'O';
+    //count has amount of spaces to choose from
     int count = 0;
     for(int i = 0; i < 3; i++)     
     {
@@ -28,13 +29,19 @@ ret_table_t search(matrix_t matrix, int idx, int jdx)
             {
                 //if not, set space as move, run recursion, set space back to empty so next move isnt fuckedup (two Xs or Os in one move)
                 matrix.matrix[i][j] = move;
-                weights[count] = search(matrix, i, j);
+
+                //NOTE: this is fix made later so original i,j comments talking about them being passed are wrong
+                //root values hold return value that chooses next move
+                int next_i = (matrix.depth == 1) ? i : idx;
+                int next_j = (matrix.depth == 1) ? j : jdx;
+
+                weights[count] = search(matrix,next_i, next_j);
                 count++;
                 matrix.matrix[i][j] = ' ';
             }
         }
     }
-    printf("weight array len = %d, fule = %d, count = %d\n", 9-fule, fule, count);
+    //printf("weight array len = %d, fule = %d, count = %d\n", 9-fule, fule, count);
     //set values if game in end state
     //4 cuz first human move is 0, bot move is 1, that means 4 will be first possible depth to end game 
     ret_table_t ret;
@@ -55,7 +62,13 @@ ret_table_t search(matrix_t matrix, int idx, int jdx)
 
     //here will be sorting and returning in the higher layers
     choose_move(weights, count);
-
+    if(matrix.depth == 1)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            printf("idx = %d, jdx = %d, depth = %d, weight = %d\n", weights[i].idx, weights[i].jdx, weights[i].depth_reached, weights[i].weight);
+        }
+    }
     //ternary operator for return, if human player, choose min, if computer, choose max
-    return (move == 'X') ? weights[0] : weights[count - 1];
+    return (move == 'X') ? weights[count - 1] :  weights[0];
 }
