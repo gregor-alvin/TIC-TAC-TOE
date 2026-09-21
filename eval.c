@@ -27,8 +27,8 @@ int eval_matrix(matrix_t matrix)
         ((matrix.matrix[2][0] == 'X') && (matrix.matrix[2][1] == 'X') && (matrix.matrix[2][2] == 'X')) ||
         //columns
         ((matrix.matrix[0][0] == 'X') && (matrix.matrix[1][0] == 'X') && (matrix.matrix[2][0] == 'X')) ||
-        ((matrix.matrix[0][0] == 'X') && (matrix.matrix[1][1] == 'X') && (matrix.matrix[2][1] == 'X')) ||
-        ((matrix.matrix[0][0] == 'X') && (matrix.matrix[1][2] == 'X') && (matrix.matrix[2][2] == 'X')) ||
+        ((matrix.matrix[0][1] == 'X') && (matrix.matrix[1][1] == 'X') && (matrix.matrix[2][1] == 'X')) ||
+        ((matrix.matrix[0][2] == 'X') && (matrix.matrix[1][2] == 'X') && (matrix.matrix[2][2] == 'X')) ||
         //diagonals
         ((matrix.matrix[0][0] == 'X') && (matrix.matrix[1][1] == 'X') && (matrix.matrix[2][2] == 'X')) ||
         ((matrix.matrix[2][0] == 'X') && (matrix.matrix[1][1] == 'X') && (matrix.matrix[0][2] == 'X'))

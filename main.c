@@ -38,37 +38,44 @@ int main(void)
             first_cycle = true;
             print_matrix(&matrix);
         }
-
         int move;
         usleep(1000);
         printf("human turn\n");
         scanf("%d", &move);
         //if move is not valid, try again
         bool is_move_ok = translate_move(&matrix, move);
-        if(!is_move_ok)
+        int attempts = 1;
+        while(!is_move_ok && attempts < 3)
         {
             printf("\nmove invalid\n");
             printf("again pls\n");
             scanf("%d", &move);
             is_move_ok = translate_move(&matrix, move);
-            if(!is_move_ok)
-            {
-                printf("\nmove invalid\n");
-                printf("again pls\n");
-                scanf("%d", &move);
-                is_move_ok = translate_move(&matrix, move);
-                if(!is_move_ok)
-                {
-                    printf("invalid move\n U DONE\n");
-                }
-            }
+            attempts++;
+        }
+        if(!is_move_ok)
+        {
+            printf("invalid move\n U DONE\n");
+        }
+
+        int x = eval_matrix(matrix);
+        printf("EVAL AFTER HUMAN MOVE, X = %d\n", x);
+        if(x != -1)
+        {
+            clear_terminal();
+            print_matrix(&matrix);
+            if(x == DEF) printf("YOU WON\n");
+            if(x == WIN) printf("I WON\n");
+            if(x == DRAW) printf("DRAW\n");
+            printf("game ended\n");
+            return 1;
         }
 
         printf("passed to pc:\n");
         print_matrix(&matrix);
         printf("pc calcul\n");        
         //run simulation, 0,0,0,0 are dummy values, only pc needs them
-        int x = eval_matrix(matrix);
+        x = eval_matrix(matrix);
         if(x == -1)
         {
             ret_table_t pc = search(matrix, 0, 0);
