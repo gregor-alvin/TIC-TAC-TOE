@@ -65,13 +65,6 @@ ret_table_t search(matrix_t matrix, int idx, int jdx)
 
     //here will be sorting and returning in the higher layers
     choose_move(weights, count);
-    if(matrix.depth == 1)
-    {
-        for(int i = 0; i < count; i++)
-        {
-            printf("idx = %d, jdx = %d, depth = %d, weight = %d\n", weights[i].idx, weights[i].jdx, weights[i].depth_reached, weights[i].weight);
-        }
-    }
     //ternary operator for return, if human player, choose min, if computer, choose max
     return (move == 'X') ? weights[count - 1] :  weights[0];
 }

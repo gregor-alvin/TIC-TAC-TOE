@@ -36,6 +36,8 @@ typedef struct {
 //helpers
 void print_matrix(matrix_t *);
 
+void print_statement(void);
+
 void init_matrix(matrix_t *);
 
 bool is_full(matrix_t *);

@@ -10,8 +10,13 @@ void print_matrix(matrix_t *matrix)
     printf("%c | %c | %c                        %d | %d | %d\n", matrix->matrix[1][0], matrix->matrix[1][1], matrix->matrix[1][2], 4, 5, 6);
     printf("---------                        ---------\n");
     printf("%c | %c | %c                        %d | %d | %d\n", matrix->matrix[2][0], matrix->matrix[2][1], matrix->matrix[2][2], 7, 8, 9);
-    printf("\n\n");
-    printf("choose yout next move by writing a number, according to move of your choice\n");
+    printf("\n");
+}
+
+void print_statement(void)
+{
+    printf("\n");
+    printf("choose your next move by writing a number, according to move of your choice\n");
 }
 
 //sets all squares to " " (empty space)
@@ -77,10 +82,6 @@ void choose_move(ret_table_t arr[], int len)
             if(arr[i].weight < arr[j].weight) swap(&arr[i], &arr[j]);
         }
     }    
-    for(int i = 0; i < len; i++)
-    {
-        printf("idx = %d, jdx = %d, depth = %d, weight = %d\n", arr[i].idx, arr[i].jdx, arr[i].depth_reached, arr[i].weight);
-    }
 }
 
 //takes number from user and traslates it to position, user-friendlier i hope xdd

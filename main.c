@@ -22,8 +22,6 @@ int main(void)
     
     for(int i = 0; i < 5; i++)
     {
-        //prints matrix + helper matrix
-        print_matrix(&matrix);
 
         //faked pc start 
         //since its optimal to start in a corner, and with rotations it basicly does not matter, we can randomly choose a corner
@@ -37,11 +35,21 @@ int main(void)
             if(rand_pos == 4) matrix.matrix[2][2] = 'O';
             first_cycle = true;
             print_matrix(&matrix);
+            print_statement();
         }
+        else 
+        {
+            //prints matrix + helper matrix
+            print_matrix(&matrix);
+            print_statement();
+        }
+
         int move;
-        usleep(1000);
-        printf("human turn\n");
         scanf("%d", &move);
+        ////////////////////////////////////////
+        //HERE ILL NEED TO PASS move TO GUI
+        ////////////////////////////////////////
+
         //if move is not valid, try again
         bool is_move_ok = translate_move(&matrix, move);
         int attempts = 1;
@@ -55,11 +63,12 @@ int main(void)
         }
         if(!is_move_ok)
         {
+            clear_terminal();
             printf("invalid move\n U DONE\n");
+            return 0;
         }
 
         int x = eval_matrix(matrix);
-        printf("EVAL AFTER HUMAN MOVE, X = %d\n", x);
         if(x != -1)
         {
             clear_terminal();
@@ -67,22 +76,21 @@ int main(void)
             if(x == DEF) printf("YOU WON\n");
             if(x == WIN) printf("I WON\n");
             if(x == DRAW) printf("DRAW\n");
-            printf("game ended\n");
+            printf("\ngame ended\n");
             return 1;
         }
 
-        printf("passed to pc:\n");
-        print_matrix(&matrix);
-        printf("pc calcul\n");        
-        //run simulation, 0,0,0,0 are dummy values, only pc needs them
+        //run simulation, 0,0 are dummy values, only pc needs them
         x = eval_matrix(matrix);
         if(x == -1)
         {
             ret_table_t pc = search(matrix, 0, 0);
-            printf("\npc chose:\n");
-            printf("idx = %d, jdx = %d, depth = %d, weight = %d\n", pc.idx, pc.jdx, pc.depth_reached, pc.weight);
-            printf("idx = %d, jdx = %d\n", pc.idx, pc.jdx);
             matrix.matrix[pc.idx][pc.jdx] = 'O';
+            clear_terminal();
+            print_matrix(&matrix);
+            ////////////////////////////////////////////////
+            //HERE ILL NEED TO PASS pc.idx AND pc.jdx TO GUI
+            ////////////////////////////////////////////////
         }
 
         x = eval_matrix(matrix);
